@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useHistory } from 'react-router-dom';
+import parse from 'html-react-parser';
 
 import "./index.scss";
 import fetchAPI from '../../services';
@@ -26,10 +27,17 @@ const Apply = () => {
       body: details,
       method: 'POST'
     }).then((res) => {
-      console.log(res);
       localStorage.setItem('applicantId', res.applicantId);
       setStep(step + 1);
       setInstructions(res.instructions);
+      fetchAPI('/game', {
+        method: 'POST',
+        body: {
+          applicantId: res.applicantId
+        }
+      }).then((res) => {
+        localStorage.setItem('gameId', res.gameId)
+      })
     }).catch((error) => {
       console.log(error);
     })
@@ -60,7 +68,7 @@ const Apply = () => {
         </form>
       ) : (
         <div className="login-form">
-          <p>{instructions}</p>
+          <p>{parse(instructions.replaceAll('\n', '<br />'))}</p>
           <button
            onClick={onPlay}
           >
