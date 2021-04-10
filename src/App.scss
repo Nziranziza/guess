@@ -4,3 +4,50 @@
   padding: 0px 20px;
   box-sizing: border-box;
 }
+.input,
+.button {
+  margin-bottom: 20px;
+  outline: none;
+  border-radius: 4px;
+  color: #cffff2;
+  border: 1px solid #cffff2;
+  box-sizing: border-box;
+  font-size: 15px;
+  padding: 10px 15px;
+  background-color: #031f53;
+}
+.button {
+  cursor: pointer;
+}
+.button:disabled {
+  opacity: 0.5;
+}
+
+.form-container {
+  h1 {
+    color: #cffff2;
+    font-weight: 600;
+    margin-bottom: 60px;
+  }
+  height: 90vh;
+  overflow: scroll;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  p {
+    color: #cffff2;
+  }
+  form {
+    width: 100%;
+  }
+  .button,
+  .input {
+    width: 100%;
+  }
+}
+.logout-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}

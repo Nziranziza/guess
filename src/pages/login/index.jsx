@@ -28,22 +28,24 @@ const Login = () => {
   };
 
   return (
-    <div className="login-container">
+    <div className="form-container">
       <h1>Login to Guess Game</h1>
-      <form className="login-form">
+      <form>
         <input
           type="text"
           placeholder="Username"
           value={credentials.username}
           onChange={(e) => onInputChange("username", e.target.value)}
+          className="input"
         />
         <input
           type="password"
           placeholder="Password"
           value={credentials.password}
           onChange={(e) => onInputChange("password", e.target.value)}
+          className="input"
         />
-        <button disabled={isDisabled()} onClick={onSubmit}>
+        <button disabled={isDisabled()} onClick={onSubmit} className="button">
           Login
         </button>
       </form>
