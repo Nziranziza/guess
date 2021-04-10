@@ -2,7 +2,7 @@ import base64 from 'base-64';
 
 const API_URL = 'https://game.flowautobody.com.au';
 
-const fetchAPI = (endpoint, options) =>
+export const fetchAPI = (endpoint, options) =>
   new Promise((resolve, reject) => {
     const credentials = JSON.parse(localStorage.getItem("credentials"));
 
@@ -25,8 +25,6 @@ const fetchAPI = (endpoint, options) =>
       combinedOptions.body = JSON.stringify(combinedOptions.body);
     }
 
-    console.log(combinedOptions);
-
     fetch(`${API_URL}${endpoint}`, combinedOptions)
     .then((res) => {
       if (res.status === 200 || res.status === 201 || res.status === 304) {
@@ -38,4 +36,8 @@ const fetchAPI = (endpoint, options) =>
     
   });
 
-export default fetchAPI;
+export const logout = () => {
+  localStorage.removeItem('credentials');
+  localStorage.removeItem('applicantId');
+  localStorage.removeItem('gameId');
+}

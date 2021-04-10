@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import parse from 'html-react-parser';
+import { useHistory } from 'react-router-dom';
 
 import './index.scss';
-import fetchAPI from '../../services';
+import { fetchAPI, logout } from '../../services';
 
 const PlayGround = () => {
   const [guess, setGuess] = useState("");
@@ -10,6 +11,22 @@ const PlayGround = () => {
   const [result, setResult] = useState("");
   const [sending, setSending] = useState(false);
   const [instructions, setInstructions] = useState('');
+  const history = useHistory();
+  
+  useEffect(() => {
+    const gameId = localStorage.getItem("gameId");
+    const applicantId = localStorage.getItem("applicantId");
+    if(!gameId) {
+      fetchAPI('/game', {
+        method: 'POST',
+        body: {
+          applicantId: applicantId
+        }
+      }).then((res) => {
+        localStorage.setItem('gameId', res.gameId)
+      })
+    }
+  }, []);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -36,18 +53,25 @@ const PlayGround = () => {
         setSending(false);
       });
   };
+
+  const logoutHandler = () => {
+    logout();
+    history.push('/login');
+  }
   return (
-    <div className="login-container">
+    <>
+    <div className="form-container">
       {result !== "correct" && (
         <>
           <h1>Enter your guess</h1>
-          <form className="login-form">
+          <form>
             <input
               placeholder="Guess"
               onChange={(e) => setGuess(e.target.value)}
               value={guess}
+              className="input"
             />
-            <button onClick={onSubmit} disabled={!guess || sending}>
+            <button className="button" onClick={onSubmit} disabled={!guess || sending}>
               {sending ? "Processing..." : "Send"}
             </button>
           </form>
@@ -67,6 +91,13 @@ const PlayGround = () => {
         </div>
       )}
     </div>
+    <button 
+      className="logout-btn button"
+      onClick={logoutHandler}
+      >
+        Logout
+      </button>
+    </>
   );
 };
 
