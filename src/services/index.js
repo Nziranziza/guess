@@ -30,7 +30,23 @@ export const fetchAPI = (endpoint, options) =>
       if (res.status === 200 || res.status === 201 || res.status === 304) {
         return resolve(res.json() || {});
       }
-      return reject(res.json() || {});
+      switch(res.status) {
+        case 401:
+          return reject({
+            ...res,
+            message: 'Incorrect username and password combination'
+          });
+        case 400:
+          return reject({
+            ...res,
+            message: 'Wrong input format'
+          })
+        default:
+          return reject({
+            ...res,
+            message: 'Something went wrong!'
+          })
+      }
     })
     .catch(err => reject(err));
     
