@@ -65,6 +65,10 @@ const PlayGround = () => {
     logout();
     history.push('/login');
   }
+
+  const redirectSubmit = () => {
+    history.push('/submit')
+  }
   return (
     <>
     <div className="form-container">
@@ -97,7 +101,9 @@ const PlayGround = () => {
           <span>That is correct!!!</span>
           <p>{parse(instructions.replaceAll("\n", "<br />"))}</p>
         </div>
-        <button className="button submit-btn">Submit</button>
+        <button className="button submit-btn" onClick={redirectSubmit}>
+          Submit
+          </button>
         </>
       )}
     </div>
