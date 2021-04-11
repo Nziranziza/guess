@@ -4,6 +4,7 @@ import parse from 'html-react-parser';
 
 import "./index.scss";
 import { fetchAPI, logout } from '../../services';
+import Toast from '../../components/Toast';
 
 const Apply = () => {
   const [details, setDetails] = useState({
@@ -13,6 +14,9 @@ const Apply = () => {
   const [step, setStep] = useState(1);
   const [instructions, setInstructions] = useState('');
   const history = useHistory();
+  const [isSending, setSending] = useState(false);
+  const [showToast, setShowToast] = useState(false);
+  const [error, setError] = useState('Something went wrong!')
 
   const onInputChange = (key, value) => {
     setDetails({
@@ -23,6 +27,7 @@ const Apply = () => {
 
   const onApply = (e) => {
     e.preventDefault();
+    setSending(true);
     fetchAPI('/apply', {
       body: details,
       method: 'POST'
@@ -39,7 +44,10 @@ const Apply = () => {
         localStorage.setItem('gameId', res.gameId)
       })
     }).catch((error) => {
-      console.log(error);
+      setShowToast(true);
+      setError(error.message);
+    }).finally(() => {
+      setSending(false)
     })
   };
 
@@ -48,7 +56,9 @@ const Apply = () => {
   };
 
   const isDisabled = () => {
-    return !details.emailAddress || !details.preferredName
+    return !details.emailAddress 
+    || !details.preferredName 
+    || isSending
   }
 
   const logoutHandler = () => {
@@ -81,7 +91,7 @@ const Apply = () => {
           className="button"
           disabled={isDisabled()}
           >
-            Apply
+            {isSending ? 'Applying...' : 'Apply'}
           </button>
         </form>
       ) : (
@@ -102,6 +112,12 @@ const Apply = () => {
       >
         Logout
       </button>
+      <Toast
+       type="error"
+       message={error}
+       show={showToast}
+       onClose={() => setShowToast(false)}
+      />
     </>
   );
 };

@@ -1,0 +1,15 @@
+@keyframes example {
+  0%   {left:-20px;}
+  100% {left:20px;}
+}
+.toast-container {
+  position: absolute; 
+  bottom: 20px;
+  left: 20px;
+  animation-name: example;
+  animation-duration: .5s;
+  display: none;
+}
+.toast-container.show {
+  display: inline;
+}

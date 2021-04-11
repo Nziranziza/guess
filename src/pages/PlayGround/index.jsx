@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 
 import './index.scss';
 import { fetchAPI, logout } from '../../services';
+import Toast from '../../components/Toast';
 
 const PlayGround = () => {
   const [guess, setGuess] = useState("");
@@ -12,6 +13,8 @@ const PlayGround = () => {
   const [sending, setSending] = useState(false);
   const [instructions, setInstructions] = useState('');
   const history = useHistory();
+  const [error, setError] = useState('');
+  const [showToast, setShowToast] = useState(false);
   
   useEffect(() => {
     const gameId = localStorage.getItem("gameId");
@@ -49,6 +52,10 @@ const PlayGround = () => {
           setInstructions(instructions)
         }
       })
+      .catch((error) => {
+        setError(error.message);
+        setShowToast(true);
+      })
       .finally(() => {
         setSending(false);
       });
@@ -84,11 +91,14 @@ const PlayGround = () => {
         </div>
       )}
       {result === "correct" && (
+        <>
         <div className="success">
           <span>Your guess: {previousGuess}</span>
           <span>That is correct!!!</span>
           <p>{parse(instructions.replaceAll("\n", "<br />"))}</p>
         </div>
+        <button className="button submit-btn">Submit</button>
+        </>
       )}
     </div>
     <button 
@@ -97,6 +107,12 @@ const PlayGround = () => {
       >
         Logout
       </button>
+      <Toast
+       type="error"
+       message={error}
+       show={showToast}
+       onClose={() => setShowToast(false)}
+      />
     </>
   );
 };
