@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/guess/static/css/main.6c6cbfe1.chunk.css",
+    "main.css": "/guess/static/css/main.9c1695bb.chunk.css",
     "main.js": "/guess/static/js/main.c80aca73.chunk.js",
     "main.js.map": "/guess/static/js/main.c80aca73.chunk.js.map",
     "runtime-main.js": "/guess/static/js/runtime-main.10701ca4.js",
@@ -10,13 +10,13 @@
     "static/js/3.92e8e524.chunk.js": "/guess/static/js/3.92e8e524.chunk.js",
     "static/js/3.92e8e524.chunk.js.map": "/guess/static/js/3.92e8e524.chunk.js.map",
     "index.html": "/guess/index.html",
-    "static/css/main.6c6cbfe1.chunk.css.map": "/guess/static/css/main.6c6cbfe1.chunk.css.map",
+    "static/css/main.9c1695bb.chunk.css.map": "/guess/static/css/main.9c1695bb.chunk.css.map",
     "static/js/2.96a9e27e.chunk.js.LICENSE.txt": "/guess/static/js/2.96a9e27e.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.10701ca4.js",
     "static/js/2.96a9e27e.chunk.js",
-    "static/css/main.6c6cbfe1.chunk.css",
+    "static/css/main.9c1695bb.chunk.css",
     "static/js/main.c80aca73.chunk.js"
   ]
 }
